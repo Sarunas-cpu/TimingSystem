@@ -7,12 +7,18 @@ using TimingSystem.WebApp.Database.Entities;
 
 namespace TimingSystem.WebApp.Database
 {
-    public class DatabaseContext:DbContext
+    public class DatabaseContext : DbContext
     {
         public DatabaseContext(DbContextOptions<DatabaseContext> options) : base(options)
         {
         }
+        public DbSet<Time> Times { get; set; }
+        public DbSet<Tournament> Tournaments { get; set; }
+        public DbSet<Penalty> Penalties { get; set; }
+        //protected override void OnModelCreating(ModelBuilder modelBuilder)
+        //{
+        //    modelBuilder.Entity<Tournament>().HasKey(ba => new { ba.Id, ba.ParticipantNr });
 
-        public DbSet<Tournament> tournaments { get; set; }
+        //}
     }
 }

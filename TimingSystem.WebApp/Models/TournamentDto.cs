@@ -1,24 +1,27 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using TimingSystem.WebApp.Models;
+using TimingSystem.WebApp.Database.Entities;
 
-namespace TimingSystem.WebApp.Database.Entities
+namespace TimingSystem.WebApp.Models
 {
-    public class Tournament
+    public class TournamentDto
     {
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        [Key]
+        [Required]
         public int TournamentId { get; set; }
+        [Required]
         public string ParticipantFirstName { get; set; }
+        [Required]
         public string ParticipantLastName { get; set; }
+        [Required]
         public int ParticipantNr { get; set; }
+        [Required]
         public string Category { get; set; }
+        [Required]
         public IEnumerable<Time> Times { get; set; }
+        [Required]
         public IEnumerable<Penalty> Penalties { get; set; }
     }
 }
