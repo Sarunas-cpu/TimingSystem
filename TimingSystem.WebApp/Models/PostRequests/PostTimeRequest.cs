@@ -13,6 +13,6 @@ namespace TimingSystem.WebApp.Models.PostRequests
         public int Minutes { get; set; }
         public int Seconds { get; set; }
         public int Milliseconds { get; set; }
-        public int TournamentRefId { get; set; }
+        public int TournamentId { get; set; }
     }
 }

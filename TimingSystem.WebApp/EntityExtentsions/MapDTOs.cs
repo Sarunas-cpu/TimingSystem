@@ -17,9 +17,9 @@ namespace TimingSystem.WebApp.EntityExtentsions
                 Description = penalty.Description,
             };
         }
-        public static IEnumerable<PenaltyDto> ConvertToDTO(this IEnumerable<Penalty> penalties)
+        public static ICollection<PenaltyDto> ConvertToDTO(this ICollection<Penalty> penalties)
         {
-            return penalties.Select(penalty => penalty.ConvertToDTO()) ;
+            return penalties.Select(penalty => penalty.ConvertToDTO()).ToList() ;
         }
 
         public static TimeDto ConvertToDTO(this Time time)
@@ -30,25 +30,32 @@ namespace TimingSystem.WebApp.EntityExtentsions
                 DriveTime = time.DriveTime,
             };
         }
-        public static IEnumerable<TimeDto> ConvertToDTO(this IEnumerable<Time> times)
+        public static ICollection<TimeDto> ConvertToDTO(this ICollection<Time> times)
         {
-            return times.Select(time => time.ConvertToDTO());
+            return times.Select(time => time.ConvertToDTO()).ToList();
         }
         public static TournamentDto ConvertToDTO(this Tournament tournament)
         {
-            TimeSpan TotalTime = TimeSpan.Zero;
+/*            TimeSpan TotalTime = TimeSpan.Zero;
             foreach (Time t in tournament.Times)
             {
                 TotalTime += t.DriveTime;
-            };
+            }*/
             return new TournamentDto
             {
                 TournamentId = tournament.TournamentId,
                 ParticipantFirstName = tournament.ParticipantFirstName,
                 ParticipantLastName = tournament.ParticipantLastName,
                 ParticipantNr = tournament.ParticipantNr,
-                Category = tournament.Category         
+                Category = tournament.Category,
+                Times = tournament.Times.ConvertToDTO(),
+                Penalties = tournament.Penalties.ConvertToDTO(),
+                TotalTime = TimeSpan.Zero
             };
+        }
+        public static ICollection<TournamentDto> ConvertToDTO(this ICollection<Tournament> tournaments)
+        {
+            return tournaments.Select(tournament => tournament.ConvertToDTO()).ToList();
         }
     }
 }

@@ -13,8 +13,7 @@ namespace TimingSystem.WebApp.Database.Entities
         [Key]
         public int PenaltyId { get; set; }
         public string Description { get; set; }
-        [ForeignKey("Tournament")]
-        public int TournamentRefId { get; set; }
+        public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
     }
 }

@@ -15,6 +15,7 @@ namespace TimingSystem.WebApp.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ParticipantFirstName = table.Column<string>(nullable: true),
                     ParticipantLastName = table.Column<string>(nullable: true),
+                    ParticipantNr = table.Column<int>(nullable: false),
                     Category = table.Column<string>(nullable: true)
                 },
                 constraints: table =>
@@ -29,14 +30,14 @@ namespace TimingSystem.WebApp.Migrations
                     PenaltyId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Description = table.Column<string>(nullable: true),
-                    TournamentRefId = table.Column<int>(nullable: false)
+                    TournamentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Penalties", x => x.PenaltyId);
                     table.ForeignKey(
-                        name: "FK_Penalties_Tournaments_TournamentRefId",
-                        column: x => x.TournamentRefId,
+                        name: "FK_Penalties_Tournaments_TournamentId",
+                        column: x => x.TournamentId,
                         principalTable: "Tournaments",
                         principalColumn: "TournamentId",
                         onDelete: ReferentialAction.Cascade);
@@ -49,28 +50,28 @@ namespace TimingSystem.WebApp.Migrations
                     TimeId = table.Column<int>(nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     DriveTime = table.Column<TimeSpan>(nullable: false),
-                    TournamentRefId = table.Column<int>(nullable: false)
+                    TournamentId = table.Column<int>(nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Times", x => x.TimeId);
                     table.ForeignKey(
-                        name: "FK_Times_Tournaments_TournamentRefId",
-                        column: x => x.TournamentRefId,
+                        name: "FK_Times_Tournaments_TournamentId",
+                        column: x => x.TournamentId,
                         principalTable: "Tournaments",
                         principalColumn: "TournamentId",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Penalties_TournamentRefId",
+                name: "IX_Penalties_TournamentId",
                 table: "Penalties",
-                column: "TournamentRefId");
+                column: "TournamentId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Times_TournamentRefId",
+                name: "IX_Times_TournamentId",
                 table: "Times",
-                column: "TournamentRefId");
+                column: "TournamentId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)

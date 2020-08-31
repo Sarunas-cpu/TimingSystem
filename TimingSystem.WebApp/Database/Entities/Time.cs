@@ -14,8 +14,7 @@ namespace TimingSystem.WebApp.Database.Entities
         [Key]
         public int TimeId { get; set; }
         public TimeSpan DriveTime { get; set; }
-        [ForeignKey("Tournament")]
-        public int TournamentRefId { get; set; }
+        public int TournamentId { get; set; }
         public Tournament Tournament { get; set; }
     }
 }

@@ -13,7 +13,5 @@ namespace TimingSystem.WebApp.Models
         public int TimeId { get; set; }
         [Required]
         public TimeSpan DriveTime { get; set; }
-        [Required]
-        public int TournamentId { get; set; }
     }
 }

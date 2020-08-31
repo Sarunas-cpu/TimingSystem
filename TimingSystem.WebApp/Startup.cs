@@ -12,6 +12,7 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using TimingSystem.WebApp.Controllers;
 using TimingSystem.WebApp.Database;
+using TimingSystem.WebApp.Services;
 
 namespace TimingSystem.WebApp
 {
@@ -30,6 +31,12 @@ namespace TimingSystem.WebApp
             services.AddControllersWithViews();
             services.AddSwaggerGen(options => options.SwaggerDoc("v1", new OpenApiInfo { Title = "test", Version = "v1"}));
             services.AddDbContext<DatabaseContext>(options => options.UseSqlServer(Configuration.GetConnectionString("Database")));
+
+            services.AddControllersWithViews()
+    .AddNewtonsoftJson(options =>
+    options.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+);
+            services.AddScoped<ITournamentService, TournamentService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

@@ -29,12 +29,12 @@ namespace TimingSystem.WebApp.Migrations
                     b.Property<string>("Description")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("TournamentRefId")
+                    b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
                     b.HasKey("PenaltyId");
 
-                    b.HasIndex("TournamentRefId");
+                    b.HasIndex("TournamentId");
 
                     b.ToTable("Penalties");
                 });
@@ -49,12 +49,12 @@ namespace TimingSystem.WebApp.Migrations
                     b.Property<TimeSpan>("DriveTime")
                         .HasColumnType("time");
 
-                    b.Property<int>("TournamentRefId")
+                    b.Property<int>("TournamentId")
                         .HasColumnType("int");
 
                     b.HasKey("TimeId");
 
-                    b.HasIndex("TournamentRefId");
+                    b.HasIndex("TournamentId");
 
                     b.ToTable("Times");
                 });
@@ -75,6 +75,9 @@ namespace TimingSystem.WebApp.Migrations
                     b.Property<string>("ParticipantLastName")
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("ParticipantNr")
+                        .HasColumnType("int");
+
                     b.HasKey("TournamentId");
 
                     b.ToTable("Tournaments");
@@ -84,7 +87,7 @@ namespace TimingSystem.WebApp.Migrations
                 {
                     b.HasOne("TimingSystem.WebApp.Database.Entities.Tournament", "Tournament")
                         .WithMany("Penalties")
-                        .HasForeignKey("TournamentRefId")
+                        .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
@@ -93,7 +96,7 @@ namespace TimingSystem.WebApp.Migrations
                 {
                     b.HasOne("TimingSystem.WebApp.Database.Entities.Tournament", "Tournament")
                         .WithMany("Times")
-                        .HasForeignKey("TournamentRefId")
+                        .HasForeignKey("TournamentId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

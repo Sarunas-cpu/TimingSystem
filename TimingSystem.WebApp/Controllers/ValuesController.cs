@@ -2,52 +2,90 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
 using TimingSystem.WebApp.Database;
 using TimingSystem.WebApp.Database.Entities;
 using TimingSystem.WebApp.EntityExtentsions;
+using TimingSystem.WebApp.Models;
 using TimingSystem.WebApp.Models.PostRequests;
+using TimingSystem.WebApp.Services;
 
 namespace TimingSystem.WebApp.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ValuesController : ControllerBase
+    public class ValuesController : Controller
     {
 
-        private readonly DatabaseContext _context;
+        private readonly ITournamentService _tournamentService;
 
-        public ValuesController(DatabaseContext context)
+        public ValuesController(ITournamentService tournamentService)
         {
-            _context = context;
+            _tournamentService = tournamentService;
+        }
+        [HttpGet]
+        [Route("{category?}")]
+        public ViewResult TournamentData([FromQuery] string category, int? number)
+        {
+            ICollection<TournamentDto> tournaments;
+
+            if (!String.IsNullOrEmpty(category))
+            {
+                tournaments = _tournamentService.TournamentData(category);
+            }
+            else if(number != null)
+            {
+                tournaments = _tournamentService.TournamentData(number);
+            } else
+            {
+                tournaments = _tournamentService.TournamentData();
+            }
+
+            return View(tournaments.ToList());
         }
 
         [HttpGet]
-        public ActionResult Data([FromQuery] string vardas)
+        [Route("Tournament/Number/{number}")]
+        public ActionResult TournamentData(int number = 5)
         {
-            return Ok(vardas);
+            ICollection<TournamentDto> tournaments = _tournamentService.TournamentData(number);
+
+            if (tournaments == null)
+            {
+                return NotFound();
+            }
+            return View(tournaments);
         }
+
+ /*       [HttpGet]
+        [Route("Tournament/Category/{category}")]
+        public ActionResult TournamentData(string category)
+        {
+            ICollection<TournamentDto> tournaments = _tournamentService.TournamentData(category);
+
+            if (tournaments == null)
+            {
+                return NotFound();
+            }
+            return View(tournaments);
+        }*/
 
         [HttpPost]
-        public async Task<ActionResult<PostTimeRequest>> PostParticipant([FromBody] PostTimeRequest postTimeRequest)
+        public ActionResult PostTime([FromBody] PostTimeRequest postTimeRequest)
         {
-            _context.Times.Add(postTimeRequest.ConvertToRequestModel());
-            await _context.SaveChangesAsync();
-
-            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-            return CreatedAtAction(nameof(postTimeRequest), new PostTimeRequest { TournamentRefId = postTimeRequest.TournamentRefId }, postTimeRequest);
+           int result = _tournamentService.PostTime(postTimeRequest);
+            return Ok(result);
         }
-    [HttpPost]
-        [Route("Tournament/{tournament?}")]
+ /*       [HttpPost]
+        [Route("Tournament/Participant")]
         public async Task<ActionResult<PostTournamentRequest>> PostTournament(PostTournamentRequest postTournamentRequest)
-    {
-        _context.Tournaments.Add(postTournamentRequest.ConvertToRequestModel());
-        await _context.SaveChangesAsync();
-
-        //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
-        return CreatedAtAction(nameof(postTournamentRequest), new PostTournamentRequest {}, postTournamentRequest);
-    }
+        {
+            _context.Tournaments.Add(postTournamentRequest.ConvertToRequestModel());
+            await _context.SaveChangesAsync();
+            //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
+            return CreatedAtAction(nameof(postTournamentRequest), new PostTournamentRequest { }, postTournamentRequest);
+        }
 
         [HttpPost]
         [Route("Penalty")]
@@ -58,7 +96,7 @@ namespace TimingSystem.WebApp.Controllers
 
             //return CreatedAtAction("GetTodoItem", new { id = todoItem.Id }, todoItem);
             return CreatedAtAction(nameof(postPenaltyRequest), new PostPenaltyRequest { }, postPenaltyRequest);
-        }
+        }*/
 
 
     }

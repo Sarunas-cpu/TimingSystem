@@ -1,0 +1,63 @@
+﻿@model IEnumerable<TournamentDto>
+
+@{
+    ViewData["Title"] = "Tournament";
+}
+<div><h1>Tournament</h1></div>
+
+@using (Html.BeginForm("TournamentData", "Values", FormMethod
+   .Get))
+{
+    <p>
+        Find by category: @Html.TextBox("category")
+        <input type="submit" value="Search" />
+    </p>
+}
+
+@using (Html.BeginForm("TournamentData", "Values", FormMethod
+   .Get))
+{
+    <p>
+        Find by number: @Html.TextBox("number")
+        <input type="submit" value="Search" />
+    </p>
+}
+<table class="table table-bordered table-responsive table-hover">
+    <tr>
+        <th>First Name</th>
+        <th>Last Name</th>
+        <th>Number</th>
+        <th>Category</th>
+        <th>Times</th>
+        <th>Penalties</th>
+        <th>Total Time</th>
+    </tr>
+    @foreach (TournamentDto tournament in Model)
+    {
+        <tr>
+            <td>@tournament.ParticipantFirstName</td>
+            <td>@tournament.ParticipantLastName</td>
+            <td>@tournament.ParticipantNr</td>
+            <td>@tournament.Category</td>
+            <td>
+                <table>
+                    @foreach (TimeDto time in @tournament.Times)
+                    {
+                        <td>@time.DriveTime </td>
+                    }
+                </table>
+            </td>
+            <td>
+                <table>
+                    @foreach (PenaltyDto penalty in @tournament.Penalties)
+                    {
+                        <td>@penalty.Description </td>
+                    }
+                </table>
+            </td>
+            <td>@tournament.TotalTime</td>
+
+        </tr>
+
+    }
+</table>

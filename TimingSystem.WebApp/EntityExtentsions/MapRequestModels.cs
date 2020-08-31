@@ -14,7 +14,7 @@ namespace TimingSystem.WebApp.EntityExtentsions
             return new Time
             {
                 DriveTime = new TimeSpan (postTimeRequest.Days, postTimeRequest.Hours, postTimeRequest.Minutes, postTimeRequest.Seconds, postTimeRequest.Milliseconds),              
-                TournamentRefId = postTimeRequest.TournamentRefId
+                TournamentId = postTimeRequest.TournamentId
             };
         }
 
@@ -23,7 +23,7 @@ namespace TimingSystem.WebApp.EntityExtentsions
             return new Penalty
             {
                 Description = postTimeRequest.Description,
-                TournamentRefId = postTimeRequest.TournamentRefId
+                TournamentId = postTimeRequest.TournamentId
             };
         }
 
@@ -34,7 +34,7 @@ namespace TimingSystem.WebApp.EntityExtentsions
                 ParticipantFirstName = postTournamentRequest.ParticipantFirstName,
                 ParticipantLastName = postTournamentRequest.ParticipantLastName,
                 Category = postTournamentRequest.Category,
-                ParticipantNr = postTournamentRequest.ParticipantNr
+                ParticipantNr = postTournamentRequest.ParticipantNr,
             };
         }
     }

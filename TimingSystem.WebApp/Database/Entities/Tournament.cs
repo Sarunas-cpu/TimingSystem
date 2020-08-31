@@ -11,6 +11,11 @@ namespace TimingSystem.WebApp.Database.Entities
 {
     public class Tournament
     {
+        public Tournament()
+        {
+            Times = new List<Time>();
+            Penalties = new List<Penalty>();
+        }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int TournamentId { get; set; }
@@ -18,7 +23,9 @@ namespace TimingSystem.WebApp.Database.Entities
         public string ParticipantLastName { get; set; }
         public int ParticipantNr { get; set; }
         public string Category { get; set; }
-        public IEnumerable<Time> Times { get; set; }
-        public IEnumerable<Penalty> Penalties { get; set; }
+        public ICollection<Time> Times { get; set; }
+        public ICollection<Penalty> Penalties { get; set; }
+
+
     }
 }

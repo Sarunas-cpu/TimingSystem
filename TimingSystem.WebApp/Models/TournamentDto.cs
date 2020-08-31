@@ -20,8 +20,10 @@ namespace TimingSystem.WebApp.Models
         [Required]
         public string Category { get; set; }
         [Required]
-        public IEnumerable<Time> Times { get; set; }
+        public ICollection<TimeDto> Times { get; set; }
         [Required]
-        public IEnumerable<Penalty> Penalties { get; set; }
+        public ICollection<PenaltyDto> Penalties { get; set; }
+        [Required]
+        public TimeSpan TotalTime { get; set; }
     }
 }
