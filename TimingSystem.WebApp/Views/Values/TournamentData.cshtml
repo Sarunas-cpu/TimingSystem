@@ -9,7 +9,7 @@
    .Get))
 {
     <p>
-        Find by category: @Html.TextBox("category")
+        Find by category: @Html.TextBox("category", ViewBag.CurrentCategory as string)
         <input type="submit" value="Search" />
     </p>
 }
@@ -18,15 +18,15 @@
    .Get))
 {
     <p>
-        Find by number: @Html.TextBox("number")
+        Find by number: @Html.TextBox("number", ViewBag.CurrentNumber as int?)
         <input type="submit" value="Search" />
     </p>
 }
 <table class="table table-bordered table-responsive table-hover">
     <tr>
-        <th>First Name</th>
+        <th>@Html.ActionLink("First Name", "TournamentData", new { sortOrder = ViewBag.NameSortParm, currentCategory = ViewBag.CurrentCategory, currentNumber = ViewBag.CurrentNumber}, null)</th>
         <th>Last Name</th>
-        <th>Number</th>
+        <th>@Html.ActionLink("Number", "TournamentData", new { sortOrder = ViewBag.NumberSortParm, currentCategory = ViewBag.CurrentCategory, currentNumber = ViewBag.CurrentNumber }, null)</th>
         <th>Category</th>
         <th>Times</th>
         <th>Penalties</th>

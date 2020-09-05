@@ -26,9 +26,25 @@ namespace TimingSystem.WebApp.Controllers
         }
         [HttpGet]
         [Route("{category?}")]
-        public ViewResult TournamentData([FromQuery] string category, int? number)
+        public ViewResult TournamentData([FromQuery] string category, int? number, string currentCategory, int? currentNumber, string sortOrder = null)
         {
+ 
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.NameSortParm = sortOrder == "Name" ? "name_desc" : "Name";
+            ViewBag.NumberSortParm = sortOrder == "Date" ? "date_desc" : "Date";
+
             ICollection<TournamentDto> tournaments;
+
+            if(category == null)
+            {
+                category = currentCategory;
+            }
+            ViewBag.CurrentCategory = category;
+            if(number == null)
+            {
+                number = currentNumber;
+            }
+            ViewBag.CurrentNumber = number;
 
             if (!String.IsNullOrEmpty(category))
             {
@@ -39,10 +55,31 @@ namespace TimingSystem.WebApp.Controllers
                 tournaments = _tournamentService.TournamentData(number);
             } else
             {
+
+                number = currentNumber;
                 tournaments = _tournamentService.TournamentData();
             }
 
-            return View(tournaments.ToList());
+
+
+            switch (sortOrder)
+            {
+                case "name_desc":
+                    tournaments = tournaments.OrderByDescending(t => t.ParticipantFirstName).ToList();
+                    break;
+                case "Date":
+                    tournaments = tournaments.OrderBy(t => t.ParticipantNr).ToList();
+                    break;
+                case "date_desc":
+                    tournaments = tournaments.OrderByDescending(t => t.ParticipantNr).ToList();
+                    break;
+                case "Name":
+                    tournaments = tournaments.OrderBy(t => t.ParticipantFirstName).ToList();
+                    break;
+                default:
+                    break;
+            }
+            return View(tournaments);
         }
 
         [HttpGet]
