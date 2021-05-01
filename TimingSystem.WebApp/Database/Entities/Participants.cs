@@ -1,26 +1,26 @@
-﻿using Microsoft.EntityFrameworkCore;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Threading.Tasks;
-using TimingSystem.WebApp.Models;
 
 namespace TimingSystem.WebApp.Database.Entities
 {
-    public class Tournament
+    public class Participants
     {
-        public Tournament()
+        public Participants()
         {
-            Participants = new List<Participants>();
+            Times = new List<Time>();
         }
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
         public int Id { get; set; }
-        public string Name { get; set; }
-        public ICollection<Participants> Participants { get; set; }
-
+        public string ParticipantFirstName { get; set; }
+        public string ParticipantLastName { get; set; }
+        public int ParticipantNr { get; set; }
+        public string Category { get; set; }
+        public ICollection<Time> Times { get; set; }
 
     }
 }

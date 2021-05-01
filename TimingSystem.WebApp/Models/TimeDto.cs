@@ -10,8 +10,12 @@ namespace TimingSystem.WebApp.Models
     public class TimeDto
     {
         [Required]
-        public int TimeId { get; set; }
+        public int Heat { get; set; }
         [Required]
         public TimeSpan DriveTime { get; set; }
+        [Required]
+        public string PenaltyDescription { get; set; }
+        [Required]
+        public TimeSpan PenaltyDuration { get; set; }
     }
 }

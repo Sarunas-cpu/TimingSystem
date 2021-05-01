@@ -12,9 +12,10 @@ namespace TimingSystem.WebApp.Database.Entities
     {
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [Key]
-        public int TimeId { get; set; }
+        public int Id { get; set; }
+        public int Heat { get; set; }
         public TimeSpan DriveTime { get; set; }
-        public int TournamentId { get; set; }
-        public Tournament Tournament { get; set; }
+        public string PenaltyDescription { get; set; }
+        public TimeSpan PenaltyDuration { get; set; }
     }
 }

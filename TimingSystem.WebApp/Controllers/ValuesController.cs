@@ -1,15 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using TimingSystem.WebApp.Database;
-using TimingSystem.WebApp.Database.Entities;
-using TimingSystem.WebApp.EntityExtentsions;
 using TimingSystem.WebApp.Models;
 using TimingSystem.WebApp.Models.PostRequests;
-using TimingSystem.WebApp.Services;
+using TimingSystem.WebApp.Services.Interfaces;
 
 namespace TimingSystem.WebApp.Controllers
 {
@@ -59,9 +54,6 @@ namespace TimingSystem.WebApp.Controllers
                 number = currentNumber;
                 tournaments = _tournamentService.TournamentData();
             }
-
-
-
             switch (sortOrder)
             {
                 case "name_desc":
