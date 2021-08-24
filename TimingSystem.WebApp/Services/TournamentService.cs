@@ -118,5 +118,10 @@ namespace TimingSystem.WebApp.Services
         {
             throw new NotImplementedException();
         }
+
+        IList<Movie> ITournamentService.GetMovies()
+        {
+            return _context.Movies.ToList();
+        }
     }
 }
