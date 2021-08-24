@@ -28,8 +28,7 @@
         <th>Last Name</th>
         <th>@Html.ActionLink("Number", "TournamentData", new { sortOrder = ViewBag.NumberSortParm, currentCategory = ViewBag.CurrentCategory, currentNumber = ViewBag.CurrentNumber }, null)</th>
         <th>Category</th>
-        <th>Times</th>
-        <th>Penalties</th>
+        <th>Heat</th>
         <th>Total Time</th>
     </tr>
     @foreach (TournamentDto tournament in Model)
@@ -43,15 +42,16 @@
                 <table>
                     @foreach (TimeDto time in @tournament.Times)
                     {
+                        <tr>
+                            <th>Drive time</th>
+                            <th>Heat</th>
+                            <th>Penalty Duration</th>
+                            <th>Penalty Description</th>
+                        </tr>
                         <td>@time.DriveTime </td>
-                    }
-                </table>
-            </td>
-            <td>
-                <table>
-                    @foreach (PenaltyDto penalty in @tournament.Penalties)
-                    {
-                        <td>@penalty.Description </td>
+                        <td>@time.Heat </td>
+                        <td>@time.PenaltyDuration </td>
+                        <td>@time.PenaltyDescription </td>
                     }
                 </table>
             </td>

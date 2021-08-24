@@ -14,7 +14,8 @@ namespace TimingSystem.WebApp.Database
         }
         public DbSet<Time> Times { get; set; }
         public DbSet<Tournament> Tournaments { get; set; }
-        public DbSet<Penalty> Penalties { get; set; }
+        public DbSet<Participants> Participants { get; set; }
+        public DbSet<Movie> Movies { get; set; }
         //protected override void OnModelCreating(ModelBuilder modelBuilder)
         //{
         //    modelBuilder.Entity<Tournament>().HasKey(ba => new { ba.Id, ba.ParticipantNr });

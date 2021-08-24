@@ -14,27 +14,18 @@ namespace TimingSystem.WebApp.EntityExtentsions
             return new Time
             {
                 DriveTime = new TimeSpan (postTimeRequest.Days, postTimeRequest.Hours, postTimeRequest.Minutes, postTimeRequest.Seconds, postTimeRequest.Milliseconds),              
-                TournamentId = postTimeRequest.TournamentId
             };
         }
 
-        public static Penalty ConvertToRequestModel(this PostPenaltyRequest postTimeRequest)
-        {
-            return new Penalty
-            {
-                Description = postTimeRequest.Description,
-                TournamentId = postTimeRequest.TournamentId
-            };
-        }
 
         public static Tournament ConvertToRequestModel(this PostTournamentRequest postTournamentRequest)
         {
             return new Tournament
             {
-                ParticipantFirstName = postTournamentRequest.ParticipantFirstName,
-                ParticipantLastName = postTournamentRequest.ParticipantLastName,
-                Category = postTournamentRequest.Category,
-                ParticipantNr = postTournamentRequest.ParticipantNr,
+                //ParticipantFirstName = postTournamentRequest.ParticipantFirstName,
+                //ParticipantLastName = postTournamentRequest.ParticipantLastName,
+                //Category = postTournamentRequest.Category,
+                //ParticipantNr = postTournamentRequest.ParticipantNr,
             };
         }
     }
